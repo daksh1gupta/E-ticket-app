@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <style>
+            body{
+                font-family: 'Times New Roman', Times, serif;
+                margin: 0;
+            }
+            header{
+                background-color: #222;
+                color: white;
+                padding: 15px;
+            }
+            nav ul{
+                list-style: none;
+                display: flex;
+                gap: 20px;
+                padding: 0;
+                margin: 10px 0 0 0;
+            }
+            nav a{
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            nav a:hover{
+                color: dodgerblue;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/flight">Flight</a></li>
+                    <li><a href="/Hotel">Hotel</a></li>
+                    <li><a href="/Bus">Bus</a></li>
+                </ul>
+            </nav>
+        </header>
+    </body>
+</html>
