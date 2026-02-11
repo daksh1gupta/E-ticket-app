@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+    </head>
+    <body>
+           <%- include("header") %>
+          <h3>Travel || World-wide</h3>
+          <input type="text" id="boarding" />
+          <input type="text" id="destination" />
+
+          <button onclick="search()">Search</button>
+          <div id="container">
+
+          </div>
+
+          <script>
+            function search(){
+                let container = 
+            document.getElementById("container").innerHTML =
+            `
+                <h5>DEL</h5>
+                <h5>CHD</h5>
+            `
+
+            }
+            
+
+          </script>
+    </body>
+</html>
