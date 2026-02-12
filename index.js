@@ -17,7 +17,11 @@ app.get("/",(req, res)=>{
 //flight route
 app.get("/flight",(req,res)=>{
      res.render("flight",{
-        title: "Flight"
+        title: "Flight",
+        flightDetail: "indigo",
+        amount : "5500",
+        Dtime : "16:50",
+        hours: "2:00"
      });
 });
 

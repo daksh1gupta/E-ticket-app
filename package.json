@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Online ticket app",
   "license": "ISC",
-  "author": "",
+  "author": "Daksh gupta",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
@@ -12,8 +12,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "axios": "^1.13.5",
     "ejs": "^4.0.1",
     "express": "^5.2.1",
+    "express-router": "^0.0.1",
     "nodemon": "^3.1.11"
   }
 }
