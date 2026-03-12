@@ -9,8 +9,15 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "ui"));
 
 app.get("/", (req, res) => {
+    // try{
+    //     const response = axios("https://jsonplaceholder.typicode.com/users");
+    //     {data : "Del to Chd"} 
+    // }catch(error){
+
+    // }
     res.render("index", {
-        title: "Home Page"
+        title: "Home Page",
+        data : "Del to Chd"
     });
 });
 
