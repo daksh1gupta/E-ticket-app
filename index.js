@@ -1,30 +1,46 @@
 const express = require("express");
 const path = require("path");
-const { title } = require("process");
+const axios = require("axios"); // npm i axios
 
 const port = 8080;
 const app = express();
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname,"ui"));
-//home route
-app.get("/",(req, res)=>{
-    res.render("index",{
-        title: "Home_page"
+app.set("views", path.join(__dirname, "ui"));
+
+app.get("/", (req, res) => {
+    res.render("index", {
+        title: "Home Page"
     });
 });
 
-//flight route
-app.get("/flight",(req,res)=>{
-     res.render("flight",{
-        title: "Flight",
-        flightDetail: "indigo",
-        amount : "5500",
-        Dtime : "16:50",
-        hours: "2:00"
-     });
+// Flight Route
+app.get("/flight", async (req, res) => {
+
+    try {
+
+        const response = await axios.get("https://jsonplaceholder.typicode.com/users");
+
+        // API data 
+        const flights = response.data.map(user => ({
+            name: user.name,
+            from: user.address.city,
+            to: user.address.street
+        }));
+
+        res.render("flight", {
+            title: "Flight Page",
+            flights: flights
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.send("Error loading flights");
+    }
+
 });
 
-app.listen(port,()=>{
-    console.log(`Server is up ${port}`);
-})
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+

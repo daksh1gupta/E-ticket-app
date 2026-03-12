@@ -1,42 +1,132 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            <%= title %>
-        </title>
-    </head>
-    <body>
-           <%- include("header") %>
-          <h3>Travel || World-wide</h3>
-          <input type="text" id="boarding" />
-          <input type="text" id="destination" />
+<head>
+<title><%= title %></title>
 
-          <button onclick="search()">Search</button>
-          <div id="container">
+<style>
 
-          </div>
-    
-       
-                
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f2f5f9;
+    margin:0;
+}
 
-          
+.container{
+    width:55%;
+    margin:auto;
+    margin-top:40px;
+}
 
-          <script>
-            function search(){
-                let container = 
-            document.getElementById("container").innerHTML =
-            `
-                <h5>DEL</h5>
-                <h5>CHD</h5>
-                <strong>Flight Details<%= flightDetail %> </strong>
-                <strong>Amount:<%= amount %></strong>
-                <strong>Departure Time:<%= Dtime %></strong>
-                <strong>Hours: <%= hours %></strong>
-            `
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
 
-            }
-            
+.flight-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
 
-          </script>
-    </body>
+.flight-card{
+    display:grid;
+    grid-template-columns: 2fr 3fr 1fr auto;
+    align-items:center;
+    background:white;
+    padding:12px 15px;
+    border-radius:6px;
+    box-shadow:0 1px 5px rgba(0,0,0,0.08);
+}
+
+.airline{
+    font-weight:bold;
+    font-size:14px;
+}
+
+.route{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.price{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.book-btn{
+    background:#ff6d38;
+    border:none;
+    color:white;
+    padding:5px 12px;
+    border-radius:4px;
+    font-size:12px;
+    cursor:pointer;
+    width:auto;
+    justify-self:end;
+}
+
+.book-btn:hover{
+    background:#e65a27;
+}
+
+.back{
+    text-align:center;
+    margin-top:20px;
+}
+
+.back a{
+    text-decoration:none;
+    background:#0078ff;
+    color:white;
+    padding:8px 16px;
+    border-radius:4px;
+    font-size:14px;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<%- include("header") %>
+
+<div class="container">
+
+<h2>✈ Available Flights</h2>
+
+<div class="flight-list">
+
+<% flights.forEach(flight => { %>
+
+<div class="flight-card">
+
+<div class="airline">
+✈ <%= flight.name %>
+</div>
+
+<div class="route">
+<%= flight.from %> ➝ <%= flight.to %>
+</div>
+
+<div class="price">
+₹ <%= Math.floor(Math.random()*5000)+3000 %>
+</div>
+
+<button class="book-btn">Book</button>
+
+</div>
+
+<% }) %>
+
+</div>
+
+<div class="back">
+<a href="/">Back to Home</a>
+</div>
+
+</div>
+
+</body>
 </html>
