@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const axios = require("axios"); // npm i axios
+const { title } = require("process");
 
 const port = 8080;
 const app = express();
@@ -16,8 +17,7 @@ app.get("/", (req, res) => {
 
     // }
     res.render("index", {
-        title: "Home Page",
-        data : "Del to Chd"
+        title: "Home Page"
     });
 });
 
@@ -47,7 +47,12 @@ app.get("/flight", async (req, res) => {
 
 });
 
+app.get("/product", (req, res)=>{
+    res.render("product", {
+        title: "Product_page"
+    })
+})
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
-
