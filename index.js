@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const axios = require("axios"); // npm i axios
 const { title } = require("process");
+const { register } = require("module");
 
 const port = 8080;
 const app = express();
@@ -50,6 +51,20 @@ app.get("/flight", async (req, res) => {
 app.get("/product", (req, res)=>{
     res.render("product", {
         title: "Product_page"
+    })
+})
+
+//login route
+app.get("/login", (req, res)=>{
+    res.render("login", {
+        title: "Login_Page"
+    })
+})
+
+//register route
+app.get("/register", (req, res)=>{
+    res.render("register", {
+        title: "Register_page"
     })
 })
 
