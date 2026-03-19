@@ -3,6 +3,18 @@ const path = require("path");
 const axios = require("axios"); // npm i axios
 const { title } = require("process");
 const { register } = require("module");
+const mongoose =require("mongoose");
+const User = require("./Models/User");
+const bcrypt = require("bcrypt"); //Middleware
+
+app.use(express.urlencoded({extented: true}));
+app.use(express.json());
+
+mongoose.connect("mongodb://localhost:27017/FlightDB")
+.then(()=>{
+    console.log("MongoDB is connected")
+})
+.catch(err => console.log(err))
 
 const port = 8080;
 const app = express();
@@ -63,6 +75,21 @@ app.get("/login", (req, res)=>{
 
 //register route
 app.get("/register", (req, res)=>{
+    try {
+        const {name, email, password} = req.body;
+
+        const existUser = await User.findOne({email});
+        if(existUser){
+            return res.send("User is already register")
+        }
+
+        //hash password
+        const hashPassword = await bcrypt.hash(password, 15);
+
+        
+    } catch (error) {
+        
+    }
     res.render("register", {
         title: "Register_page"
     })
