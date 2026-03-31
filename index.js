@@ -6,9 +6,18 @@ const { register } = require("module");
 const mongoose =require("mongoose");
 const User = require("./Models/User");
 const bcrypt = require("bcrypt"); //Middleware
+const session = require("express-session");
+const port = 8080;
+const app = express();
 
 app.use(express.urlencoded({extented: true}));
 app.use(express.json());
+app.use(session({
+    secret: "key123456",
+    resave: false,
+    saveUninitialized: false,
+}))
+
 
 mongoose.connect("mongodb://localhost:27017/FlightDB")
 .then(()=>{
@@ -16,13 +25,19 @@ mongoose.connect("mongodb://localhost:27017/FlightDB")
 })
 .catch(err => console.log(err))
 
-const port = 8080;
-const app = express();
+//MIddleWare
+function isLoggedIn(req, res, next){
+    if(req.session.user){
+        next();
+    }else{
+        res.redirect("/login")
+    }
+}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "ui"));
 
-app.get("/", (req, res) => {
+app.get("/", isLoggedIn, (req, res) => {
     // try{
     //     const response = axios("https://jsonplaceholder.typicode.com/users");
     //     {data : "Del to Chd"} 
@@ -67,14 +82,31 @@ app.get("/product", (req, res)=>{
 })
 
 //login route
-app.get("/login", (req, res)=>{
-    res.render("login", {
-        title: "Login_Page"
-    })
+app.post("/login", async (req, res)=>{
+    try {
+        const { email, password} = req.body;
+        const user = await User.findOne({email});
+
+        if(!user){
+            return res.send("User not found");
+        }
+        const isMatch = await bcrypt.compare(password, user.password)
+
+        if(!isMatch){
+            req.session.user = user; //store the session
+            return res.redirect("/");
+        }else{
+            return res.send("Invalid Password")
+        }
+    } catch (error) {
+        console.log(error);
+        res.send("Error is UserLogin");
+    }
+    
 })
 
 //register route
-app.get("/register", (req, res)=>{
+app.post("/register", async (req, res)=>{
     try {
         const {name, email, password} = req.body;
 
@@ -86,12 +118,39 @@ app.get("/register", (req, res)=>{
         //hash password
         const hashPassword = await bcrypt.hash(password, 15);
 
+        const newUser = new User ({
+            name, 
+            email,
+            password: hashPassword
+        })
+
+        await newUser.save();
         
+        res.redirect("/login");
+
+
     } catch (error) {
-        
+        console.log(error);
+        res.send("Error in registering the user")
     }
+})
+
+app.get("/login", (req,res)=>{
+    res.render("login", {
+        title: "Login_page"
+    })
+})
+//register
+app.get("/register", (req,res)=>{
     res.render("register", {
         title: "Register_page"
+    })
+})
+
+//Logout route
+app.get("/logout", (req,res)=>{
+    req.session.destroy(()=>{
+        res.redirect("/login");
     })
 })
 

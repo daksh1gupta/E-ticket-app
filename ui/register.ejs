@@ -1,17 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <title><%= title %></title>
-</head>
-<body>
-    <h2>SignUp</h2>
 
-    <form action="/register" method="POST">
-        <input type="text" name="name" placeholder="Enter your Name: " required><br><br>
-        <input type="email" name="email" placeholder="Enter mail" required><br><br>
-        <input type="password" name="password" placeholder="Enter your password" required><br><br>
-        <button type="submit">SignUp</button>
-    </form>
-    <p>Already have a account? <a href="/login">Login</a></p>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #ff6a00, #ee0979);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-container {
+            background: #fff;
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #ff6a00;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #ff6a00;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #e65c00;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #ff6a00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-container">
+        <h2>Create your account</h2>
+
+        <form action="/register" method="POST">
+            <input 
+                type="text" 
+                name="name" 
+                placeholder="Enter your name" 
+                required>
+
+            <input 
+                type="email" 
+                name="email"
+                placeholder="Enter email" 
+                required>
+
+            <input 
+                type="password" 
+                name="password"
+                placeholder="Enter your password" 
+                required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="/login">Login</a>
+        </div>
+    </div>
+
 </body>
 </html>
